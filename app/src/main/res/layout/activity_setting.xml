@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:background="@color/cardview_dark_background"
+    android:background="@color/bgDark"
     android:layout_height="match_parent"
     tools:context=".SettingActivity"
     tools:ignore="PrivateResource">

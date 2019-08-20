@@ -152,6 +152,9 @@ dependencies {
 
     //draggable view
     implementation 'com.github.pedrovgs:draggablepanel:1.9'
+
+    //morph bottom navigation bar
+    implementation 'com.tbuonomo:morph-bottom-navigation:1.0.1'
 }
 //google service's
 apply plugin: 'com.google.gms.google-services'

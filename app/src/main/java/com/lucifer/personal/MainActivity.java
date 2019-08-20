@@ -4,11 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
-import android.app.ProgressDialog;
+import androidx.fragment.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
@@ -18,25 +14,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.Toast;
-import com.bumptech.glide.request.RequestOptions;
-import com.glide.slider.library.Animations.DescriptionAnimation;
-import com.glide.slider.library.SliderLayout;
-import com.glide.slider.library.SliderTypes.BaseSliderView;
-import com.glide.slider.library.SliderTypes.TextSliderView;
-import com.glide.slider.library.Tricks.ViewPagerEx;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.mikepenz.crossfadedrawerlayout.view.CrossfadeDrawerLayout;
 import com.mikepenz.materialdrawer.AccountHeader;
@@ -58,7 +45,7 @@ import java.util.ArrayList;
 import am.appwise.components.ni.NoInternetDialog;
 import es.dmoral.toasty.Toasty;
 
-public class MainActivity extends AppCompatActivity implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener, MoviesAdapter.OnItemClickListener {
+public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     // CONNECTION_TIMEOUT and READ_TIMEOUT are in milliseconds
     private long backPressedTime;
@@ -68,24 +55,10 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
     private CrossfadeDrawerLayout crossfadeDrawerLayout = null;
     FirebaseAuth mAuth;
     IProfile profile;
-    private SwipeRefreshLayout swipeContainer;
     private MaterialSearchView searchView;
     Toolbar toolbar;
     private InterstitialAd mInterstitialAd;
-    private SliderLayout mDemoSlider;
-    private DatabaseReference mDatabase;
-    ArrayList<Movie> listMovie = new ArrayList<>();
-    ArrayList<Movie> listSliderMovies = new ArrayList<>();
-    ArrayList<Movie> listActionMovie = new ArrayList<>();
-    ArrayList<Movie> listDramaMovie = new ArrayList<>();
-    ArrayList<Movie> listThrillerMovie = new ArrayList<>();
-    ArrayList<Movie> listComedyMovie = new ArrayList<>();
-    ArrayList<Movie> listHorrorMovie = new ArrayList<>();
-    ArrayList<Movie> listLoveMovie = new ArrayList<>();
-    ArrayList<Movie> listdubMovie = new ArrayList<>();
-    RecyclerView actionRecyclerView, dramaRecyclerView, thrillerRecyclerView, comedyRecyclerView, horrorRecyclerView, loveRecyclerView, dubRecyclerView;
-    MoviesAdapter actionMoviesAdapter, dramaMoviesAdapter, thrillerMoviesAdapter, comedyMoviesAdapter, horrorMoviesAdapter, loveMoviesAdapter, dubMoviesAdapter;
-    LinearLayout moviesLayout, actionMoviesLayout, dramaMoviesLayout, thrillerMoviesLayout, comedyMoviesLayout, horrorMoviesLayout, loveMoviesLayout, dubMoviesLayout;
+    DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -276,84 +249,12 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
             Log.e("DrawerError",e.getMessage());
         }
 
+        //loading the default fragment
+        loadFragment(new MoviesFragment());
 
-        //slider initialization
-        mDemoSlider = findViewById(R.id.slider);
-
-        moviesLayout = findViewById(R.id.moviesLayout);
-        actionMoviesLayout = findViewById(R.id.actionMoviesLayout);
-        dramaMoviesLayout = findViewById(R.id.dramaMoviesLayout);
-        thrillerMoviesLayout = findViewById(R.id.thrillerMoviesLayout);
-        comedyMoviesLayout = findViewById(R.id.comedyMoviesLayout);
-        horrorMoviesLayout = findViewById(R.id.horrorMoviesLayout);
-        loveMoviesLayout = findViewById(R.id.loveMoviesLayout);
-        dubMoviesLayout = findViewById(R.id.dubMoviesLayout);
-
-        actionRecyclerView = findViewById(R.id.action_recycler_view);
-        dramaRecyclerView = findViewById(R.id.drama_recycler_view);
-        thrillerRecyclerView = findViewById(R.id.thriller_recycler_view);
-        comedyRecyclerView = findViewById(R.id.comedy_recycler_view);
-        horrorRecyclerView = findViewById(R.id.horror_recycler_view);
-        loveRecyclerView = findViewById(R.id.love_recycler_view);
-        dubRecyclerView = findViewById(R.id.dub_recycler_view);
-
-        actionRecyclerView.setHasFixedSize(true);
-        dramaRecyclerView.setHasFixedSize(true);
-        thrillerRecyclerView.setHasFixedSize(true);
-        comedyRecyclerView.setHasFixedSize(true);
-        horrorRecyclerView.setHasFixedSize(true);
-        loveRecyclerView.setHasFixedSize(true);
-        dubRecyclerView.setHasFixedSize(true);
-
-        actionRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false));
-        dramaRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false));
-        thrillerRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false));
-        comedyRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false));
-        horrorRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false));
-        loveRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false));
-        dubRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false));
-
-        actionMoviesAdapter = new MoviesAdapter(MainActivity.this,listActionMovie);
-        dramaMoviesAdapter = new MoviesAdapter(MainActivity.this,listDramaMovie);
-        thrillerMoviesAdapter = new MoviesAdapter(MainActivity.this,listThrillerMovie);
-        comedyMoviesAdapter = new MoviesAdapter(MainActivity.this,listComedyMovie);
-        horrorMoviesAdapter = new MoviesAdapter(MainActivity.this,listHorrorMovie);
-        loveMoviesAdapter = new MoviesAdapter(MainActivity.this,listLoveMovie);
-        dubMoviesAdapter = new MoviesAdapter(MainActivity.this,listdubMovie);
-
-        actionRecyclerView.setAdapter(actionMoviesAdapter);
-        dramaRecyclerView.setAdapter(dramaMoviesAdapter);
-        thrillerRecyclerView.setAdapter(thrillerMoviesAdapter);
-        comedyRecyclerView.setAdapter(comedyMoviesAdapter);
-        horrorRecyclerView.setAdapter(horrorMoviesAdapter);
-        loveRecyclerView.setAdapter(loveMoviesAdapter);
-        dubRecyclerView.setAdapter(dubMoviesAdapter);
-
-        getSlider();
-        getData();
-
-        swipeContainer = findViewById(R.id.swipeContainer);
-        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                mDemoSlider.removeAllSliders();
-                getData();
-            }
-        });
-
-        // Configure the refreshing colors
-        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
-                android.R.color.holo_green_light,
-                android.R.color.holo_orange_light,
-                android.R.color.holo_red_light);
-
-        actionMoviesAdapter.setOnItemClickListener(MainActivity.this);
-        dramaMoviesAdapter.setOnItemClickListener(MainActivity.this);
-        thrillerMoviesAdapter.setOnItemClickListener(MainActivity.this);
-        comedyMoviesAdapter.setOnItemClickListener(MainActivity.this);
-        horrorMoviesAdapter.setOnItemClickListener(MainActivity.this);
-        loveMoviesAdapter.setOnItemClickListener(MainActivity.this);
-        dubMoviesAdapter.setOnItemClickListener(MainActivity.this);
+        //getting bottom navigation view and attaching the listener
+        BottomNavigationView navigation = findViewById(R.id.bottomNavigationView);
+        navigation.setOnNavigationItemSelectedListener(this);
 
     }
 
@@ -442,266 +343,40 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
         });
     }
 
-    public void getSlider() {
-        listSliderMovies.clear();
-
-        try {
-
-            FirebaseDatabase.getInstance().getReference().child("Slider").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                    listSliderMovies.clear();
-
-                    for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                        // TODO: handle the post
-                        Movie movie = postSnapshot.getValue(Movie.class);
-                        listSliderMovies.add(movie);
-                    }
-
-                    RequestOptions requestOptions = new RequestOptions();
-                    requestOptions.centerCrop();
-
-                    for (int i = 0; i < listSliderMovies.size(); i++) {
-                        TextSliderView sliderView = new TextSliderView(MainActivity.this);
-
-                        sliderView
-                                .description(listSliderMovies.get(i).movieName)
-                                .image(listSliderMovies.get(i).imgUrl)
-                                .setOnSliderClickListener(MainActivity.this);
-
-                        sliderView.bundle(new Bundle());
-                        sliderView.getBundle().putString("movie", listSliderMovies.get(i).movieName);
-                        mDemoSlider.addSlider(sliderView);
-                    }
-
-                    mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Accordion);
-                    mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
-                    mDemoSlider.setCustomAnimation(new DescriptionAnimation());
-                    mDemoSlider.setDuration(5000);
-                    mDemoSlider.addOnPageChangeListener(MainActivity.this);
-
-                    if(swipeContainer.isRefreshing()){
-                        swipeContainer.setRefreshing(false);
-                    }
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Log.w("FireBaseError", "loadSlider:onCancelled", databaseError.toException());
-                }
-            });
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void getData() {
-        listMovie.clear();
-        listActionMovie.clear();
-        listDramaMovie.clear();
-        listThrillerMovie.clear();
-        listHorrorMovie.clear();
-        listLoveMovie.clear();
-        listComedyMovie.clear();
-        listdubMovie.clear();
-
-        final ProgressDialog pdLoading = new ProgressDialog(MainActivity.this);
-        pdLoading.setMessage("\t Please wait loading...");
-        pdLoading.setCancelable(false);
-        pdLoading.show();
-        try {
-
-            mDatabase.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                    listMovie.clear();
-                    listActionMovie.clear();
-                    listDramaMovie.clear();
-                    listThrillerMovie.clear();
-                    listHorrorMovie.clear();
-                    listLoveMovie.clear();
-                    listComedyMovie.clear();
-                    listdubMovie.clear();
-
-                    for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                        // TODO: handle the post
-                        Movie movie = postSnapshot.getValue(Movie.class);
-                        listMovie.add(movie);
-                        if(movie != null){
-                            if(movie.type.equals("Action")){
-                                listActionMovie.add(movie);
-                            }
-                            if(movie.type.equals("Thriller")){
-                                listThrillerMovie.add(movie);
-                            }
-                            if(movie.type.equals("Drama")){
-                                listDramaMovie.add(movie);
-                            }
-                            if(movie.type.equals("Comedy")){
-                                listComedyMovie.add(movie);
-                            }
-                            if(movie.type.equals("Horror")){
-                                listHorrorMovie.add(movie);
-                            }
-                            if(movie.type.equals("Love")){
-                                listLoveMovie.add(movie);
-                            }
-                            if(movie.dubbed.equals("Yes")){
-                                listdubMovie.add(movie);
-                            }
-                        }
-
-                        actionMoviesAdapter.notifyDataSetChanged();
-                        dramaMoviesAdapter.notifyDataSetChanged();
-                        thrillerMoviesAdapter.notifyDataSetChanged();
-                        comedyMoviesAdapter.notifyDataSetChanged();
-                        horrorMoviesAdapter.notifyDataSetChanged();
-                        loveMoviesAdapter.notifyDataSetChanged();
-                        dubMoviesAdapter.notifyDataSetChanged();
-
-                        setVisibility();
-                    }
-
-                    pdLoading.hide();
-                    if(swipeContainer.isRefreshing()){
-                        swipeContainer.setRefreshing(false);
-                    }
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Log.w("FireBaseError", "loadSlider:onCancelled", databaseError.toException());
-                }
-            });
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void setVisibility() {
-        if(listMovie.size()>0){
-
-            moviesLayout.setVisibility(View.VISIBLE);
-
-            if(listActionMovie.size() <= 0){
-                actionMoviesLayout.setVisibility(View.GONE);
-            }else{
-                actionMoviesLayout.setVisibility(View.VISIBLE);
-            }
-            if(listComedyMovie.size() <= 0){
-                comedyMoviesLayout.setVisibility(View.GONE);
-            }else{
-                comedyMoviesLayout.setVisibility(View.VISIBLE);
-            }
-            if(listDramaMovie.size() <= 0){
-                dramaMoviesLayout.setVisibility(View.GONE);
-            }else{
-                dramaMoviesLayout.setVisibility(View.VISIBLE);
-            }
-            if(listHorrorMovie.size() <= 0){
-                horrorMoviesLayout.setVisibility(View.GONE);
-            }else{
-                horrorMoviesLayout.setVisibility(View.VISIBLE);
-            }
-            if(listLoveMovie.size() <= 0){
-                loveMoviesLayout.setVisibility(View.GONE);
-            }else{
-                loveMoviesLayout.setVisibility(View.VISIBLE);
-            }
-            if(listThrillerMovie.size() <= 0){
-                thrillerMoviesLayout.setVisibility(View.GONE);
-            }else{
-                thrillerMoviesLayout.setVisibility(View.VISIBLE);
-            }
-        } else {
-            moviesLayout.setVisibility(View.GONE);
-        }
-    }
-
     @Override
-    public void onSliderClick(BaseSliderView slider) {
-//
-//        Toast.makeText(this,slider.getBundle().get("movie") + "",Toast.LENGTH_SHORT).show();
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        Fragment fragment = null;
 
-        for(int i=0; i < listSliderMovies.size(); i++){
-            if( listSliderMovies.get(i).movieName == slider.getBundle().get("movie")) {
-                Intent detailIntent = new Intent(MainActivity.this, VideoPlayActivity.class);
-                detailIntent.putExtra("movieName", listSliderMovies.get(i).movieName);
-                detailIntent.putExtra("director", listSliderMovies.get(i).director);
-                detailIntent.putExtra("duration", listSliderMovies.get(i).duration);
-                detailIntent.putExtra("imgUrl", listSliderMovies.get(i).imgUrl);
-                detailIntent.putExtra("lang", listSliderMovies.get(i).lang);
-                detailIntent.putExtra("star", listSliderMovies.get(i).star);
-                detailIntent.putExtra("type", listSliderMovies.get(i).type);
-                detailIntent.putExtra("utubeId", listSliderMovies.get(i).utubeId);
-                detailIntent.putExtra("videoUrl", listSliderMovies.get(i).videoUrl);
-                startActivity(detailIntent);
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-            }
-        }
-    }
+        switch (item.getItemId()) {
+            case R.id.navigation_movies:
+                fragment = new MoviesFragment();
+                break;
 
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            case R.id.navigation_videos:
+                fragment = new VideosFragment();
+                break;
 
-    }
+            case R.id.navigation_songs:
+                fragment = new SongsFragment();
+                break;
 
-    @Override
-    public void onPageSelected(int position) {
-
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-
-    }
-
-
-    @Override
-    public void onItemClick(int position, String type, String dubbed) {
-        Movie item = new Movie();
-        if(!type.equals("") && !dubbed.equals("Yes")){
-            if(type.equals("Action")){
-                item = listActionMovie.get(position);
-            }
-            if(type.equals("Thriller")){
-                item = listThrillerMovie.get(position);
-            }
-            if(type.equals("Drama")){
-                item = listDramaMovie.get(position);
-            }
-            if(type.equals("Comedy")){
-                item = listComedyMovie.get(position);
-            }
-            if(type.equals("Horror")){
-                item = listHorrorMovie.get(position);
-            }
-            if(type.equals("Love")){
-                item = listLoveMovie.get(position);
-            }
-        }else if(dubbed.equals("Yes")){
-            item = listdubMovie.get(position);
+            case R.id.navigation_tv:
+                fragment = new TvFragment();
+                break;
         }
 
-        Intent detailIntent = new Intent(MainActivity.this, VideoPlayActivity.class);
-        detailIntent.putExtra("movieName", item.movieName);
-        detailIntent.putExtra("director", item.director);
-        detailIntent.putExtra("duration", item.duration);
-        detailIntent.putExtra("imgUrl", item.imgUrl);
-        detailIntent.putExtra("lang", item.lang);
-        detailIntent.putExtra("star", item.star);
-        detailIntent.putExtra("type", item.type);
-        detailIntent.putExtra("utubeId", item.utubeId);
-        detailIntent.putExtra("description", item.description);
-        detailIntent.putExtra("videoUrl", item.videoUrl);
-        startActivity(detailIntent);
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        return loadFragment(fragment);
+    }
 
+    private boolean loadFragment(Fragment fragment) {
+        //switching fragment
+        if (fragment != null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, fragment)
+                    .commit();
+            return true;
+        }
+        return false;
     }
 }

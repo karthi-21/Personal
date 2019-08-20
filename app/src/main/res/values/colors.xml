@@ -23,4 +23,5 @@
     <color name="background">#FFFACD</color>
     <color name="darkbg">@color/cardview_dark_background</color>
     <color name="lightbg">@color/cardview_light_background</color>
+    <color name="bgDark">#FF1C1C1C</color>
 </resources>
