@@ -1,0 +1,57 @@
+{
+  "project_info": {
+    "project_number": "909966734249",
+    "firebase_url": "https://personal-60e57.firebaseio.com",
+    "project_id": "personal-60e57",
+    "storage_bucket": "personal-60e57.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:909966734249:android:2f8b3c80a25259a0",
+        "android_client_info": {
+          "package_name": "com.lucifer.personal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "909966734249-oa0rnve1noql6n13tmg8shpok9cb4qhi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lucifer.personal",
+            "certificate_hash": "c71b4e1d096e4c20d3a525614d1cdd8e213e4bcc"
+          }
+        },
+        {
+          "client_id": "909966734249-jsig098v30r4ou3vek4fhj9h0dit6c4t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lucifer.personal",
+            "certificate_hash": "483e0b7b881547aea5b52edefcc1928d55a41e18"
+          }
+        },
+        {
+          "client_id": "909966734249-7uv3bvj9fl0he0hl6itbg4rkjfkcs8qf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCEA6iLs5-wxfLwuyJ9HPGik98Vp93r0Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "909966734249-1i4rj5jfbvukaaiv33c08odd9nbupef8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-4984184584221035~6823881381"
+    }
+  ],
+  "configuration_version": "1"
+}

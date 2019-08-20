@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/detailScrollable"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:padding="10dp"
+            android:theme="@style/ThemeOverlay.MaterialComponents.Light"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/close"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:lottie_colorFilter="@color/primary"
+                android:background="@null"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                app:lottie_autoPlay="true"
+                app:lottie_rawRes="@raw/close"/>
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_toLeftOf="@id/close"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:layout_width="fill_parent"
+                android:textStyle="bold"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:id="@+id/urlToImage"
+                android:layout_below="@id/description"
+                android:contentDescription="@string/news_image"
+                android:layout_width="match_parent"
+                android:layout_height="300dp" />
+            <TextView
+                android:layout_below="@id/urlToImage"
+                android:id="@+id/author"
+                android:textColor="@color/primary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_below="@id/author"
+                android:id="@+id/content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/shareText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="SHARE"
+                android:layout_toLeftOf="@id/share"
+                android:layout_below="@id/content"/>
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/share"
+                android:layout_below="@id/content"
+                android:layout_width="38dp"
+                android:layout_height="40dp"
+                android:layout_centerHorizontal="true"
+                android:background="@null"
+                app:lottie_rawRes="@raw/share" />
+
+        </RelativeLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</RelativeLayout>

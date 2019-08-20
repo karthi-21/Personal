@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/colorTransparent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:padding="7dp"
+        android:layout_margin="5dp"
+        app:cardCornerRadius="10dp"
+        android:elevation="5dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardElevation="5dp"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        tools:targetApi="lollipop"
+        tools:ignore="PrivateResource">
+
+        <ImageView
+            android:id="@+id/movieCardImg"
+            android:layout_width="100dp"
+            android:layout_height="150dp" />
+
+    </androidx.cardview.widget.CardView>
+
+
+</RelativeLayout>

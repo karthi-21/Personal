@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/root"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@color/cardview_dark_background"
+    android:layout_height="match_parent"
+    tools:context=".SettingActivity"
+    tools:ignore="PrivateResource">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+
+
+    <RelativeLayout
+        android:id="@+id/profile"
+        android:layout_below="@id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_centerHorizontal="true"
+            android:id="@+id/profile_image"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginTop="25dp"
+            android:src="@drawable/profile_image"
+            app:civ_border_width="1dp"
+            app:civ_border_color="@color/colorTransparent"/>
+
+        <TextView
+            android:id="@+id/user_name"
+            android:layout_below="@id/profile_image"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="15dp"
+            android:textStyle="bold"
+            android:textColor="@color/md_white_1000"
+            android:text="UserName"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/user_mail"
+            android:layout_below="@id/user_name"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/md_white_1000"
+            android:text="Mail"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="HardcodedText" />
+
+    </RelativeLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/profile_card"
+        app:cardBackgroundColor="@color/primary"
+        app:cardElevation="5dp"
+        app:cardCornerRadius="5dp"
+        android:layout_below="@id/profile"
+        android:layout_width="match_parent"
+        android:layout_margin="20dp"
+        android:layout_height="wrap_content"
+        tools:ignore="PrivateResource">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="favorites"
+                android:background="@drawable/rippleeffect"
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/favCount"
+                    android:textStyle="bold"
+                    android:textColor="@color/md_white_1000"
+                    android:layout_width="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:layout_height="wrap_content"
+                    android:text="1"/>
+
+                <TextView
+                    android:layout_weight="1"
+                    android:textColor="@color/md_white_1000"
+                    android:layout_width="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:layout_height="wrap_content"
+                    android:text="Favorites"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_margin="5dp"
+                android:layout_width="0.5dp"
+                android:background="@color/primary_dark"
+                android:layout_height="match_parent"/>
+
+            <LinearLayout
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="bookmark"
+                android:layout_weight="1"
+                android:background="@drawable/rippleeffect"
+                android:layout_margin="10dp"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/bookmarkCount"
+                    android:textStyle="bold"
+                    android:textColor="@color/md_white_1000"
+                    android:layout_width="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:layout_height="wrap_content"
+                    android:text="1"/>
+
+                <TextView
+                    android:layout_weight="1"
+                    android:textColor="@color/md_white_1000"
+                    android:layout_width="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:layout_height="wrap_content"
+                    android:text="Bookmarks"/>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <ScrollView
+        android:layout_below="@id/profile_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_margin="10dp"
+                android:layout_width="match_parent"
+                android:gravity="center_horizontal|center"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="@drawable/rippleeffect"
+                android:foregroundTint="@color/md_white_1000"
+                android:onClick="appLang"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:layout_weight="1"
+                    android:id="@+id/langIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_translate"
+                    android:background="@color/colorTransparent"/>
+
+                <LinearLayout
+                    android:layout_weight="2"
+                    android:layout_width="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:id="@+id/langText"
+                        android:textColor="@color/md_white_1000"
+                        android:layout_width="wrap_content"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:layout_height="wrap_content"
+                        android:text="App Language"/>
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/primary"
+                        android:text="English"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_margin="10dp"
+                android:layout_width="match_parent"
+                android:gravity="center_horizontal|center"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="@drawable/rippleeffect"
+                android:foregroundTint="@color/md_white_1000"
+                android:onClick="privacy"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:layout_weight="1"
+                    android:id="@+id/privacyIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_privacy"
+                    android:background="@color/colorTransparent"/>
+                <TextView
+                    android:layout_weight="4"
+                    android:id="@+id/privacyText"
+                    android:textColor="@color/md_white_1000"
+                    android:layout_width="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:layout_height="wrap_content"
+                    android:text="Privacy"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_margin="10dp"
+                android:layout_width="match_parent"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="@drawable/rippleeffect"
+                android:foregroundTint="@color/md_white_1000"
+                android:onClick="help"
+                android:gravity="center_horizontal|center"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:layout_weight="1"
+                    android:id="@+id/helpIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_help"
+                    android:background="@color/colorTransparent"/>
+                <TextView
+                    android:layout_weight="4"
+                    android:id="@+id/helpText"
+                    android:textColor="@color/md_white_1000"
+                    android:layout_width="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:layout_height="wrap_content"
+                    android:text="Help"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_margin="10dp"
+                android:layout_width="match_parent"
+                android:gravity="center_horizontal|center"
+                android:clickable="true"
+                android:background="@drawable/rippleeffect"
+                android:focusable="true"
+                android:foregroundTint="@color/md_white_1000"
+                android:onClick="about"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:layout_weight="1"
+                    android:id="@+id/aboutIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_about"
+                    android:background="@color/colorTransparent"/>
+                <TextView
+                    android:layout_weight="4"
+                    android:id="@+id/aboutText"
+                    android:textColor="@color/md_white_1000"
+                    android:layout_width="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:layout_height="wrap_content"
+                    android:text="About"/>
+
+            </LinearLayout>
+
+            <!--<View-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="0.5dp"-->
+                <!--android:background="#ebebeb"-->
+                <!--android:layout_margin="5dp"/>-->
+
+            <LinearLayout
+                android:layout_margin="10dp"
+                android:layout_width="match_parent"
+                android:onClick="signOut"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center_horizontal|center"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:focusable="true"
+                    android:foregroundTint="@color/md_white_1000"
+                    android:onClick="signOut"
+                    android:text="Sign Out"
+                    android:background="@drawable/button_style"
+                    android:textColor="@color/md_white_1000"
+                    android:paddingRight="15dp"
+                    android:paddingLeft="15dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+
+</RelativeLayout>

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:padding="7dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="5dp"
+        android:elevation="5dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardElevation="5dp"
+        android:backgroundTint="@color/cardview_dark_background"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        tools:targetApi="lollipop"
+        tools:ignore="PrivateResource">
+
+        <RelativeLayout
+            android:layout_margin="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/newsContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/urlToImage"
+                android:layout_width="150dp"
+                android:layout_alignParentEnd="true"
+                android:layout_height="150dp"/>
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_toLeftOf="@id/urlToImage"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:layout_marginRight="5dp"
+                android:text="title"
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/md_white_1000"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
+
+            <TextView
+                android:layout_toLeftOf="@id/urlToImage"
+                android:layout_below="@id/title"
+                android:id="@+id/author"
+                android:text="author"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/primary"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+            <TextView
+                android:layout_toLeftOf="@id/urlToImage"
+                android:id="@+id/description"
+                android:layout_below="@id/author"
+                android:text="description"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/md_white_1000"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/tools"
+                android:layout_below="@id/newsContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/favorite"
+                    android:layout_width="43dp"
+                    android:layout_centerVertical="true"
+                    android:layout_height="43dp"
+                    android:background="@null"
+                    android:layout_alignParentStart="true"
+                    app:lottie_rawRes="@raw/star1" />
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/bookmark"
+                    android:layout_width="43dp"
+                    android:layout_toRightOf="@id/favorite"
+                    android:layout_centerVertical="true"
+                    android:layout_height="43dp"
+                    android:background="@null"
+                    app:lottie_rawRes="@raw/bookmark" />
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/share"
+                    android:layout_toRightOf="@id/bookmark"
+                    android:layout_width="38dp"
+                    android:layout_centerVertical="true"
+                    android:layout_height="35dp"
+                    android:background="@null"
+                    app:lottie_rawRes="@raw/share" />
+
+                <TextView
+                    android:id="@+id/publishedAt"
+                    android:text="date"
+                    android:layout_margin="5dp"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/primary_light"
+                    android:layout_width="wrap_content"
+                    android:layout_toStartOf="@id/textViewOptions"
+                    android:layout_marginEnd="5dp"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/textViewOptions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/md_white_1000"
+                    android:layout_marginEnd="10dp"
+                    android:text="&#8942;"
+                    android:textAppearance="?android:textAppearanceLarge" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+
+</LinearLayout>

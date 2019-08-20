@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/parentlayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".VideoPlayActivity">
+
+    <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+        android:id="@+id/youtube_player_view"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        app:autoPlay="false"
+        app:showYouTubeButton="false"
+        app:handleNetworkEvents="true"
+        app:showSeekBar="true"
+        app:showFullScreenButton="true" />
+
+    <ImageButton
+        android:id="@+id/pip"
+        android:onClick="pip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_pip"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="100dp"
+        android:background="@color/colorTransparent"/>
+
+    <ImageButton
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_back_arrow"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorTransparent"/>
+
+    <ScrollView
+        android:layout_below="@id/youtube_player_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/movieName"
+                android:text="Movie Name"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:fontFamily="sans-serif-smallcaps"
+                android:textSize="30sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_below="@+id/movieName"
+                android:id="@+id/director"
+                android:layout_margin="5dp"
+                android:text="Director"
+                android:fontFamily="sans-serif"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_below="@+id/director"
+                android:id="@+id/actor"
+                android:layout_margin="5dp"
+                android:text="Actor"
+                android:fontFamily="sans-serif"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_below="@+id/actor"
+                android:id="@+id/type"
+                android:layout_margin="5dp"
+                android:fontFamily="sans-serif"
+                android:textColor="@color/black"
+                android:text="Type"
+                android:textSize="20sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_below="@+id/type"
+                android:layout_margin="5dp"
+                android:id="@+id/lang"
+                android:fontFamily="sans-serif"
+                android:textColor="@color/black"
+                android:text="Language"
+                android:textSize="20sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_below="@+id/lang"
+                android:id="@+id/duration"
+                android:layout_margin="5dp"
+                android:fontFamily="sans-serif"
+                android:textColor="@color/black"
+                android:text="Duration"
+                android:textSize="20sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_below="@+id/duration"
+                android:id="@+id/description"
+                android:layout_margin="5dp"
+                android:fontFamily="sans-serif"
+                android:textColor="@color/black"
+                android:text="Description"
+                android:textSize="20sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

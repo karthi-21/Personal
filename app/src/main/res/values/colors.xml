@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#9F71EC</color>
+    <color name="colorPrimaryDark">#392A53</color>
+    <color name="colorPrimaryLight">#C4C9E8</color>
+    <color name="colorAccent">#DA467C</color>
+    <!-- overwrite the selected colors because the primary color is to dark -->
+    <color name="material_drawer_selected_text">#9F71EC</color>
+    <color name="material_drawer_dark_selected_text">#9F71EC</color>
+    <color name="demo_dark_transparent">#24000000</color>
+
+    <color name="online">#DD389905</color>
+    <color name="offline">#C50B0B</color>
+    <color name="lastSeen">#585757</color>
+    <color name="colorTransparent">#00ffffff</color>
+    <color name="black_overlay">#66000000</color>
+
+    <color name="black">#FF000000</color>
+    <color name="blue">#0033CC</color>
+    <color name="green">#006600</color>
+    <color name="red">#BB0000</color>
+    <color name="yellow">#FFFF33</color>
+    <color name="background">#FFFACD</color>
+    <color name="darkbg">@color/cardview_dark_background</color>
+    <color name="lightbg">@color/cardview_light_background</color>
+</resources>
