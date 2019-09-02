@@ -5,20 +5,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerFullScreenListener;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.YouTubePlayerUtils;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 
 import am.appwise.components.ni.NoInternetDialog;
@@ -28,8 +27,8 @@ public class VideoPlayActivity extends AppCompatActivity {
     YouTubePlayerView youTubePlayerView;
     private RelativeLayout layout;
     ImageButton pip, back;
-    String videoId,movieName,director,duration,imgUrl,lang,star,type,utubeId,videoUrl,description;
-    TextView mActor,mName,mDirector,mDuration,mLanguage,mType,mDesc;
+    String imgUrl, uTubeId, videoUrl, description;
+    TextView mActor, mName, mDirector, mDuration, mLanguage, mType, mDesc;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,28 +49,56 @@ public class VideoPlayActivity extends AppCompatActivity {
         NoInternetDialog noInternetDialog = new NoInternetDialog.Builder(this).build();
 
         Intent intent = getIntent();
-//        videoId = intent.getStringExtra("videoId");
+        String from = intent.getStringExtra("from");
+        if(from.equals("movie")){
+            imgUrl = intent.getStringExtra("imgUrl");
+            uTubeId = intent.getStringExtra("uTubeId");
+            videoUrl = intent.getStringExtra("videoUrl");
 
-        movieName = intent.getStringExtra("movieName");
-        director = intent.getStringExtra("director");
-        duration = intent.getStringExtra("duration");
-        imgUrl = intent.getStringExtra("imgUrl");
-        lang = intent.getStringExtra("lang");
-        star = intent.getStringExtra("star");
-        type = intent.getStringExtra("type");
-        utubeId = intent.getStringExtra("utubeId");
-        videoUrl = intent.getStringExtra("videoUrl");
-        description = intent.getStringExtra("description");
-
+            mName.setText(intent.getStringExtra("movieName"));
+            String act = "<b>Starer</b> :" + intent.getStringExtra("star");
+            mActor.setText(Html.fromHtml(act));
+            String direct = "<b>Directer</b> :" + intent.getStringExtra("director");
+            mDirector.setText(Html.fromHtml(direct));
+            String dur = "<b>Duration</b> :" + intent.getStringExtra("duration");
+            mDuration.setText(Html.fromHtml(dur));
+            String typ = "<b>Type</b> :" + intent.getStringExtra("type");
+            mType.setText(Html.fromHtml(typ));
+            String lng = "<b>Language</b> :" + intent.getStringExtra("lang");
+            mLanguage.setText(Html.fromHtml(lng));
+            String des = "<b>Description</b> :\t\t" + intent.getStringExtra("description");
+            mDesc.setText(Html.fromHtml(des));
+        }
+        if(from.equals("tv")) {
+            uTubeId = intent.getStringExtra("videoId");
+            mName.setText(intent.getStringExtra("name"));
+            String act = "<b>Language</b> :" + intent.getStringExtra("language");
+            mActor.setText(Html.fromHtml(act));
+            String direct = "<b>Country</b> :" + intent.getStringExtra("country");
+            mDirector.setText(Html.fromHtml(direct));
+            String dur = "<b>Launched</b> :" + intent.getStringExtra("launched");
+            mDuration.setText(Html.fromHtml(dur));
+            String typ = "<b>Network</b> :" + intent.getStringExtra("network");
+            mType.setText(Html.fromHtml(typ));
+            String lng = "<b>Owned By</b> :" + intent.getStringExtra("owner");
+            mLanguage.setText(Html.fromHtml(lng));
+            String des = "<b>Description</b> :\t\t" + intent.getStringExtra("description");
+            mDesc.setText(Html.fromHtml(des));
+        }
 
 
         youTubePlayerView = findViewById(R.id.youtube_player_view);
         getLifecycle().addObserver(youTubePlayerView);
 
+        if(from.equals("tv")){
+           youTubePlayerView.getPlayerUiController().enableLiveVideoUi(true);
+        }
         youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
             @Override
             public void onReady(@NonNull YouTubePlayer youTubePlayer) {
-                youTubePlayer.loadVideo(utubeId, 0);
+                youTubePlayer.loadVideo(uTubeId, 0);
+
+                YouTubePlayerUtils.loadOrCueVideo(youTubePlayer,getLifecycle(), uTubeId,0);
             }
         });
 
@@ -89,19 +116,7 @@ public class VideoPlayActivity extends AppCompatActivity {
             }
         });
 
-        mName.setText(movieName);
-        String act = "<b>Starer</b> :" + star;
-        mActor.setText(Html.fromHtml(act));
-        String direct = "<b>Directer</b> :" + director;
-        mDirector.setText(Html.fromHtml(direct));
-        String dur = "<b>Duration</b> :" + duration;
-        mDuration.setText(Html.fromHtml(dur));
-        String typ = "<b>Type</b> :" + type;
-        mType.setText(Html.fromHtml(typ));
-        String lng = "<b>Language</b> :" + lang;
-        mLanguage.setText(Html.fromHtml(lng));
-        String des = "<b>Description</b> :\t\t" + description;
-        mDesc.setText(Html.fromHtml(des));
+
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override

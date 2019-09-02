@@ -155,6 +155,10 @@ dependencies {
 
     //morph bottom navigation bar
     implementation 'com.tbuonomo:morph-bottom-navigation:1.0.1'
+
+    //okhttp
+    implementation 'com.squareup.okhttp:okhttp:2.5.0'
+
 }
 //google service's
 apply plugin: 'com.google.gms.google-services'

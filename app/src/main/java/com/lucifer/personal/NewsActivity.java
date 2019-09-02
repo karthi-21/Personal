@@ -390,7 +390,7 @@ public class NewsActivity extends AppCompatActivity implements NewsAdapter.OnIte
     public void onItemClick(int position) {
         News clickedItem = newsArrayList.get(position);
         new FinestWebView.Builder(NewsActivity.this).theme(R.style.FinestWebViewTheme)
-                .titleDefault("News-X")
+                .titleDefault("Anubhavi Raja")
                 .toolbarScrollFlags(0)
                 .statusBarColorRes(R.color.primary_dark)
                 .toolbarColorRes(R.color.primary_dark)

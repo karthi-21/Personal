@@ -156,7 +156,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                             new PrimaryDrawerItem().withName("Headlines").withIcon(R.drawable.ic_news).withIdentifier(1),
                             new PrimaryDrawerItem().withName("My Favorites").withIcon(R.drawable.ic_star).withIdentifier(2),
                             new PrimaryDrawerItem().withName("My Bookmarks").withIcon(R.drawable.ic_bookmark).withIdentifier(3),
-                            new PrimaryDrawerItem().withName("Live TV").withIcon(R.drawable.ic_live_tv).withIdentifier(4),
                             new PrimaryDrawerItem().withName("Setting").withIcon(R.drawable.ic_settings).withIdentifier(5),
 //                        new PrimaryDrawerItem().withName("5th").withDescription("A more complex sample").withIcon(MaterialDesignIconic.Icon.gmi_adb).withIdentifier(5),
 //                        new PrimaryDrawerItem().withName("6th").withIcon(MaterialDesignIconic.Icon.gmi_car).withIdentifier(6),
@@ -186,11 +185,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                                 result.closeDrawer();
                                 startActivity(new Intent(MainActivity.this, BookmarkActivity.class));
                                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                            } else if (drawerItem.getIdentifier() == 4) {
-                                result.closeDrawer();
-                                startActivity(new Intent(MainActivity.this, LiveTVActivity.class));
-                                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                            }else if (drawerItem.getIdentifier() == 5) {
+                            } else if (drawerItem.getIdentifier() == 5) {
                                 result.closeDrawer();
                                 startActivity(new Intent(MainActivity.this, SettingActivity.class));
                                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

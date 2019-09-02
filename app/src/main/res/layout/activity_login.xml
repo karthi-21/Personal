@@ -4,15 +4,50 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/bgDark"
+    android:gravity="center"
     android:layout_height="match_parent"
     tools:context=".LoginActivity">
+    <TextView
+        android:layout_below="@id/title"
+        android:id="@+id/message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/md_white_1000"
+        android:layout_centerHorizontal="true"
+        android:text="Welcome, Please login to get started"
+        android:textStyle="bold"
+        android:fontFamily="monospace"
+        android:textSize="15sp"
+        android:layout_marginBottom="20dp"/>
 
+    <ImageView
+        android:id="@+id/titleIcon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:src="@drawable/anubhaviraja"
+        />
+
+    <TextView
+        android:layout_below="@id/titleIcon"
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/md_white_1000"
+        android:layout_centerHorizontal="true"
+        android:text="AnubhaviRaja"
+        android:textStyle="bold"
+        android:fontFamily="monospace"
+        android:textSize="30sp"
+        android:layout_marginBottom="20dp"/>
 
     <FrameLayout
+        android:layout_below="@id/message"
         android:id="@+id/frame_container"
         android:layout_width="match_parent"
-        android:background="@color/bgDark"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp">
 
         <com.google.android.gms.common.SignInButton
             android:id="@+id/sign_in_button"

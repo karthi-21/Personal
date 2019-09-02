@@ -119,6 +119,7 @@ public class MoviesFragment extends Fragment implements BaseSliderView.OnSliderC
         getSlider();
         getData();
 
+
         swipeContainer = rootView.findViewById(R.id.swipeContainer);
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -149,6 +150,7 @@ public class MoviesFragment extends Fragment implements BaseSliderView.OnSliderC
 //        return inflater.inflate(R.layout.fragment_movies, null);
         return rootView;
     }
+
     private void getSlider() {
         listSliderMovies.clear();
 
@@ -165,28 +167,31 @@ public class MoviesFragment extends Fragment implements BaseSliderView.OnSliderC
                         Movie movie = postSnapshot.getValue(Movie.class);
                         listSliderMovies.add(movie);
                     }
+                    try{
+                        RequestOptions requestOptions = new RequestOptions();
+                        requestOptions.centerCrop();
 
-                    RequestOptions requestOptions = new RequestOptions();
-                    requestOptions.centerCrop();
+                        for (int i = 0; i < listSliderMovies.size(); i++) {
+                            TextSliderView sliderView = new TextSliderView(getContext());
 
-                    for (int i = 0; i < listSliderMovies.size(); i++) {
-                        TextSliderView sliderView = new TextSliderView(getContext());
+                            sliderView
+                                    .description(listSliderMovies.get(i).movieName)
+                                    .image(listSliderMovies.get(i).imgUrl)
+                                    .setOnSliderClickListener(MoviesFragment.this);
 
-                        sliderView
-                                .description(listSliderMovies.get(i).movieName)
-                                .image(listSliderMovies.get(i).imgUrl);
-//                                .setOnSliderClickListener(getContext());
+                            sliderView.bundle(new Bundle());
+                            sliderView.getBundle().putString("movie", listSliderMovies.get(i).movieName);
+                            mDemoSlider.addSlider(sliderView);
+                        }
 
-                        sliderView.bundle(new Bundle());
-                        sliderView.getBundle().putString("movie", listSliderMovies.get(i).movieName);
-                        mDemoSlider.addSlider(sliderView);
+                        mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Accordion);
+                        mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
+                        mDemoSlider.setCustomAnimation(new DescriptionAnimation());
+                        mDemoSlider.setDuration(8000);
+                        mDemoSlider.addOnPageChangeListener(MoviesFragment.this);
+                    }catch(Exception e){
+                        Log.e("slider", "onCreateView: " + e.getMessage() );
                     }
-
-                    mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Accordion);
-                    mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
-                    mDemoSlider.setCustomAnimation(new DescriptionAnimation());
-                    mDemoSlider.setDuration(5000);
-//                    mDemoSlider.addOnPageChangeListener(getContext());
 
                     if(swipeContainer.isRefreshing()){
                         swipeContainer.setRefreshing(false);
@@ -344,6 +349,7 @@ public class MoviesFragment extends Fragment implements BaseSliderView.OnSliderC
         for(int i=0; i < listSliderMovies.size(); i++){
             if( listSliderMovies.get(i).movieName == slider.getBundle().get("movie")) {
                 Intent detailIntent = new Intent(getContext(), VideoPlayActivity.class);
+                detailIntent.putExtra("from", "movie");
                 detailIntent.putExtra("movieName", listSliderMovies.get(i).movieName);
                 detailIntent.putExtra("director", listSliderMovies.get(i).director);
                 detailIntent.putExtra("duration", listSliderMovies.get(i).duration);
@@ -351,8 +357,9 @@ public class MoviesFragment extends Fragment implements BaseSliderView.OnSliderC
                 detailIntent.putExtra("lang", listSliderMovies.get(i).lang);
                 detailIntent.putExtra("star", listSliderMovies.get(i).star);
                 detailIntent.putExtra("type", listSliderMovies.get(i).type);
-                detailIntent.putExtra("utubeId", listSliderMovies.get(i).utubeId);
+                detailIntent.putExtra("uTubeId", listSliderMovies.get(i).utubeId);
                 detailIntent.putExtra("videoUrl", listSliderMovies.get(i).videoUrl);
+                detailIntent.putExtra("description", listSliderMovies.get(i).description);
                 startActivity(detailIntent);
                 getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
@@ -402,6 +409,7 @@ public class MoviesFragment extends Fragment implements BaseSliderView.OnSliderC
         }
 
         Intent detailIntent = new Intent(getContext(), VideoPlayActivity.class);
+        detailIntent.putExtra("from", "movie");
         detailIntent.putExtra("movieName", item.movieName);
         detailIntent.putExtra("director", item.director);
         detailIntent.putExtra("duration", item.duration);
@@ -409,7 +417,7 @@ public class MoviesFragment extends Fragment implements BaseSliderView.OnSliderC
         detailIntent.putExtra("lang", item.lang);
         detailIntent.putExtra("star", item.star);
         detailIntent.putExtra("type", item.type);
-        detailIntent.putExtra("utubeId", item.utubeId);
+        detailIntent.putExtra("uTubeId", item.utubeId);
         detailIntent.putExtra("description", item.description);
         detailIntent.putExtra("videoUrl", item.videoUrl);
         startActivity(detailIntent);
